@@ -167,14 +167,3 @@ class StockPlotter:
         plt.legend()
         plt.grid(False)
 
-
-# Example usage
-stocks = ['AAL']
-start_date = datetime.datetime(2023, 1, 1)
-end_date = datetime.datetime.now()
-
-stock_data = StockData(stocks, start_date, end_date)
-stock_data.fetch_data()
-
-plotter = StockPlotter(stocks, stock_data, StockIndicators)
-plotter.plot(plot_type='candlestick')
