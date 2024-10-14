@@ -87,10 +87,9 @@ class StockIndicators:
 
 
 class StockPlotter:
-    def __init__(self, tickers, stock_data, indicators):
+    def __init__(self, tickers, stock_data):
         self.tickers = tickers
         self.stock_data = stock_data
-        self.indicators = indicators
 
     def plot(self, plot_type='line', resample=None, window_ma=30, window_rsi=14):
         closing_prices, opening_prices, volumes, low, high = self.stock_data.get_prices()
@@ -132,7 +131,7 @@ class StockPlotter:
                 'Volume': volumes[ticker]
             }).dropna()
 
-            indicators = StockIndicators
+            indicators = StockIndicators(data_df['Close'])
             simple_ma = indicators.calculate_sma(window_ma)
             exponential_ma = indicators.calculate_ema(window_ma)
             rsi = indicators.calculate_rsi(window_rsi)
@@ -141,13 +140,11 @@ class StockPlotter:
             data_df['EMA_30'] = exponential_ma
             data_df['RSI_14'] = rsi
 
-            add_plots = [
-                mpf.make_addplot(
-                    data_df['SMA_30'], color='darkslateblue', label='SMA 30', panel=0),
-                mpf.make_addplot(
-                    data_df['EMA_30'], color='blue', label='EMA 30', panel=0),
-                mpf.make_addplot(
-                    data_df['RSI_14'], color='purple', label='RSI 14', panel=2, ylabel='RSI')
+            add_plots = [mpf.make_addplot(data_df['SMA_30'], color='darkslateblue', label='SMA 30', panel=0),
+                         mpf.make_addplot(data_df['EMA_30'],
+                                          color='blue', label='EMA 30', panel=0),
+                         mpf.make_addplot(
+                data_df['RSI_14'], color='purple', label='RSI 14', panel=2, ylabel='RSI')
             ]
 
             title = f'{ticker} Candlestick Chart (SMA({window_ma}), EMA({
@@ -155,15 +152,26 @@ class StockPlotter:
             mpf.plot(data_df, type='candle', style='yahoo', volume=True,
                      title=title, addplot=add_plots, panel_ratios=(3, 1))
 
-    def _plot_bar(self, volumes):
-        plt.figure(figsize=(12, 8))
-        for ticker in self.tickers:
-            plt.bar(volumes.index, volumes[ticker], label=f'{
-                    ticker} Volume', alpha=0.5)
+            def _plot_bar(self, volumes):
+                plt.figure(figsize=(12, 8))
+                for ticker in self.tickers:
+                    plt.bar(volumes.index, volumes[ticker], label=f'{
+                            ticker} Volume', alpha=0.5)
 
-        plt.title(f'{",".join(self.tickers)} Trading Volume')
-        plt.xlabel('Date')
-        plt.ylabel('Volume')
-        plt.legend()
-        plt.grid(False)
+                plt.title(f'{",".join(self.tickers)} Trading Volume')
+                plt.xlabel('Date')
+                plt.ylabel('Volume')
+                plt.legend()
+                plt.grid(False)
 
+<<<<<<< HEAD
+=======
+
+start_date = datetime.datetime(2023, 1, 1)
+end_date = datetime.datetime.now()
+stocks = ['SOL.JO']
+stock_data = StockData(stocks, start_date, end_date)
+stock_data.fetch_data()
+plotter = StockPlotter(stocks, stock_data)
+plotter.plot(plot_type='candlestick')
+>>>>>>> 45bef25 (Added existing code and models)
