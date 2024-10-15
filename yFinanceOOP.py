@@ -79,8 +79,7 @@ class StockIndicators:
         delta = self.price_data.diff()
         gain = self.price_data.where(
             delta > 0, 0).rolling(window=window).mean()
-        loss = -self.price_data.where(delta < 0,
-                                      0).rolling(window=window).mean()
+        loss = -self.price_data.where(delta < 0, 0).rolling(window=window).mean()
         rs = gain / loss
         rsi = 100 - (100 / (1 + rs))
         return rsi
@@ -164,9 +163,6 @@ class StockPlotter:
                 plt.legend()
                 plt.grid(False)
 
-<<<<<<< HEAD
-=======
-
 start_date = datetime.datetime(2023, 1, 1)
 end_date = datetime.datetime.now()
 stocks = ['SOL.JO']
@@ -174,4 +170,4 @@ stock_data = StockData(stocks, start_date, end_date)
 stock_data.fetch_data()
 plotter = StockPlotter(stocks, stock_data)
 plotter.plot(plot_type='candlestick')
->>>>>>> 45bef25 (Added existing code and models)
+
