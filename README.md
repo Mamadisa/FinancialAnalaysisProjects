@@ -1,7 +1,7 @@
-# Data Science and Portfolio Analysis Projects
+# Portfolio Analysis Projects
 This repository is a collection of some of the models I have been working on to showcase my coding skills.
 
-#Project 1:
+# Project 1:
 A simple model that fetches financial data using the yfinance API to collect historical data from Yahoo Finance for analysis and enables users to analyze historical stock data efficiently and visualize market trends using different charts. 
 The model provides the user with three visualization options:
 
